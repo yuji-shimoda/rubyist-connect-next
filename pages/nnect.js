@@ -16,7 +16,7 @@ export default function UserIndexPage({ user }) {
   const [rubyists, setRubyists] = useState([]);
   const [total, setTotal] = useState(1);
   const [index, setIndex] = useState(1);
-  const DISPLAY_COUNT = 21;
+  const DISPLAY_COUNT = 20;
 
   useEffect(() => {
     async function loadData() {
