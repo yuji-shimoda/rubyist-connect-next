@@ -1,12 +1,15 @@
-import '../styles/globals.css';
-import { NextUIProvider } from '@nextui-org/react';
+import { UserProvider } from "@supabase/auth-helpers-react";
+import { supabaseClient } from "@supabase/auth-helpers-nextjs";
+import { NextUIProvider } from "@nextui-org/react";
 
-function MyApp({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   return (
     <NextUIProvider>
-      <Component {...pageProps} />
+      <UserProvider supabaseClient={supabaseClient}>
+        <Component {...pageProps} />
+      </UserProvider>
     </NextUIProvider>
   );
 }
 
-export default MyApp;
+export default App;
