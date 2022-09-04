@@ -1,19 +1,17 @@
-import { useUser } from "@supabase/auth-helpers-react";
-import { supabaseClient } from "@supabase/auth-helpers-nextjs";
-import { Button, Text, Container, Spacer } from "@nextui-org/react";
-import { useRouter } from "next/router";
-import UserIndexPage from "./nnect";
+import { useUser } from '@supabase/auth-helpers-react';
+import { supabaseClient } from '@supabase/auth-helpers-nextjs';
+import { Button, Text, Container, Spacer } from '@nextui-org/react';
+import { useRouter } from 'next/router';
 
 export default function LoginPage() {
   const router = useRouter();
   const { user } = useUser();
 
-  function login() {
-    supabaseClient.auth.signIn({
-      provider: "github",
+  async function login() {
+    await supabaseClient.auth.signIn({
+      provider: 'github',
     });
   }
-
   if (!user)
     return (
       <Container
@@ -22,17 +20,15 @@ export default function LoginPage() {
         direction="column"
         justify="center"
         alignItems="center"
-        style={{ height: "100vh" }}
-      >
+        style={{ height: '100vh' }}>
         <Spacer />
         <Text
           h1
           size={60}
           css={{
-            textGradient: "45deg, $purple600 -20%, $pink600 100%",
+            textGradient: '45deg, $purple600 -20%, $pink600 100%',
           }}
-          weight="bold"
-        >
+          weight="bold">
           Rubyist Connect
         </Text>
         <Text>Search for Rubyists close to you and connect with Rubyists.</Text>
@@ -42,6 +38,5 @@ export default function LoginPage() {
         </Button>
       </Container>
     );
-  router.replace("/nnect");
-  return <UserIndexPage user={user} />;
+  router.push('/nnect');
 }
