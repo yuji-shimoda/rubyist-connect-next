@@ -13,7 +13,12 @@ export default function UserCard({ rubyist }) {
           router.push(router.pathname + `/${encodeURIComponent(rubyist.nickname)}`);
         }}>
         <Card.Body css={{ p: 0 }}>
-          <Card.Image src={rubyist.image} objectFit="cover" width="100%" alt={rubyist.nickname} />
+          <Card.Image
+            src={rubyist.avatar_url}
+            objectFit="cover"
+            width="100%"
+            alt={rubyist.nickname}
+          />
         </Card.Body>
         <Card.Footer
           isBlurred
@@ -26,7 +31,7 @@ export default function UserCard({ rubyist }) {
           }}>
           <Row wrap="wrap" justify="space-between" align="center">
             <Text b>{rubyist.nickname}</Text>
-            <Link color="error" href={rubyist.github_url} target="_blank">
+            <Link color="error" href={`https://github.com/${rubyist.nickname}`} target="_blank">
               <FaGithub size="20px"></FaGithub>
             </Link>
           </Row>
