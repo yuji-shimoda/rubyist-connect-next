@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
-import { supabaseClient, withPageAuth } from '@supabase/auth-helpers-nextjs';
+import { withPageAuth } from '@supabase/auth-helpers-nextjs';
 import { useUser } from '@supabase/auth-helpers-react';
-import { Container, Grid, Pagination, Loading } from '@nextui-org/react';
+import { Container, Grid, Pagination } from '@nextui-org/react';
 import UserCard from '../../components/UserCard';
-import { useRecoilState } from 'recoil';
-import { rubyistsState } from '../../components/store/rubyists';
 import AppBar from '../../components/AppBar';
 
 export const getServerSideProps = withPageAuth({ redirectTo: '/' });
@@ -17,7 +15,7 @@ function getPageUsers(data, currentPage, itemsPerPage) {
 
 export default function UserIndexPage() {
   const { user } = useUser();
-  const [rubyists, setRubyists] = useRecoilState(rubyistsState);
+  const [rubyists, setRubyists] = useState([]);
   const [excludeMe, setExcludeMe] = useState(null);
   const [total, setTotal] = useState(1);
   const [index, setIndex] = useState(1);
@@ -25,9 +23,16 @@ export default function UserIndexPage() {
 
   useEffect(() => {
     async function loadData() {
-      const { data } = await supabaseClient.from('users').select('*');
-      setRubyists(data);
-      setTotal(Math.ceil(data.length / DISPLAY_COUNT));
+      try {
+        const res = await fetch('/api/users');
+        if (res.ok) {
+          const data = await res.json();
+          setRubyists(data);
+          setTotal(Math.ceil(data.length / DISPLAY_COUNT));
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
     // Only run query once user is logged in.
     if (user) loadData();
@@ -41,6 +46,7 @@ export default function UserIndexPage() {
     });
     setExcludeMe(tmp);
   }, [rubyists]);
+
   return (
     <>
       <AppBar user={user} />
@@ -65,12 +71,7 @@ export default function UserIndexPage() {
           </Container>
         </>
       ) : (
-        <>
-          <AppBar user={user} />
-          <Container>
-            <Loading />
-          </Container>
-        </>
+        ''
       )}
     </>
   );
