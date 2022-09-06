@@ -3,8 +3,6 @@ import { supabaseClient, withPageAuth } from '@supabase/auth-helpers-nextjs';
 import { useUser } from '@supabase/auth-helpers-react';
 import { Container, Grid, Pagination, Loading } from '@nextui-org/react';
 import EventCard from '../../../components/EventCard';
-import { useRecoilState } from 'recoil';
-import { eventsState } from '../../../components/store/events';
 import AppBar from '../../../components/AppBar';
 
 export const getServerSideProps = withPageAuth({ redirectTo: '/' });
@@ -17,7 +15,7 @@ function getPageEvents(data, currentPage, itemsPerPage) {
 
 export default function UserIndexPage() {
   const { user } = useUser();
-  const [events, setEvents] = useRecoilState(eventsState);
+  const [events, setEvents] = useState([]);
   const [total, setTotal] = useState(1);
   const [index, setIndex] = useState(1);
   const DISPLAY_COUNT = 12;
@@ -25,7 +23,6 @@ export default function UserIndexPage() {
   useEffect(() => {
     async function loadData() {
       const { data } = await supabaseClient.from('events').select('*');
-
       setEvents(data);
       setTotal(Math.ceil(data.length / DISPLAY_COUNT));
     }
