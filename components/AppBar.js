@@ -1,15 +1,11 @@
 import { Text, Navbar, User, Button, Tooltip } from '@nextui-org/react';
 import { LogOutButton } from '../components/LogOutButton';
 import { MdEditCalendar } from 'react-icons/md';
-import { MdHome } from 'react-icons/md';
 import router from 'next/router';
 
 function AppBar({ user }) {
   function move_events() {
     router.push('/nnect/events');
-  }
-  function move_users() {
-    router.push('/nnect');
   }
 
   return (
@@ -21,9 +17,6 @@ function AppBar({ user }) {
       </Navbar.Brand>
 
       <Navbar.Content>
-        <Tooltip color="invert" rounded content="Home" placement="bottom" hideArrow>
-          <Button auto color="error" onPress={move_users} icon={<MdHome size={20} />} />
-        </Tooltip>
         <Tooltip color="invert" rounded content="Events" placement="bottom" hideArrow>
           <Button auto color="error" onPress={move_events} icon={<MdEditCalendar size={20} />} />
         </Tooltip>
