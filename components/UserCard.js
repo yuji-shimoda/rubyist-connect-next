@@ -30,7 +30,7 @@ export default function UserCard({ rubyist }) {
             zIndex: 1,
           }}>
           <Row wrap="wrap" justify="space-between" align="center">
-            <Text b>{rubyist.nickname}</Text>
+            <Text b>{rubyist?.name ? rubyist.name : rubyist.nickname}</Text>
             <Link color="error" href={`https://github.com/${rubyist.nickname}`} target="_blank">
               <FaGithub size="20px"></FaGithub>
             </Link>
