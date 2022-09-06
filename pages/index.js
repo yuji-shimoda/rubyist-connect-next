@@ -5,13 +5,17 @@ import { useRouter } from 'next/router';
 
 export default function LoginPage() {
   const router = useRouter();
-  const { user } = useUser();
-
+  const { user, error } = useUser();
   async function login() {
-    await supabaseClient.auth.signIn({
-      provider: 'github',
-    });
+    try {
+      await supabaseClient.auth.signIn({
+        provider: 'github',
+      });
+    } catch (err) {
+      console.error(err);
+    }
   }
+  if (error) return <p>{error.message}</p>;
   if (!user)
     return (
       <Container
