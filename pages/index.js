@@ -4,18 +4,6 @@ import { supabaseClient } from '@supabase/auth-helpers-nextjs';
 import { Button, Text, Container, Spacer } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 
-export async function getServerSideProps() {
-  return {
-    props: {
-      url: 'https://www.rubyist.co/',
-      title: 'Rubyist Connect',
-      description: 'Search for Rubyists close to you and connect with Rubyists.',
-      site_name: 'Rubyist Connect',
-      image: '/ruby.png',
-    },
-  };
-}
-
 export default function LoginPage(ogp) {
   const router = useRouter();
   const { user, error } = useUser();
@@ -34,12 +22,6 @@ export default function LoginPage(ogp) {
       <>
         <Head>
           <title>Rubyist Connect</title>
-          <head prefix="og: https://ogp.me/ns#"></head>
-          <meta property="og:url" content={ogp.url} />
-          <meta property="og:title" content={ogp.title} />
-          <meta property="og:description" content={ogp.description} />
-          <meta property="og:site_name" content={ogp.site_name} />
-          <meta property="og:image" content={ogp.image} />
         </Head>
         <Container
           as="main"
