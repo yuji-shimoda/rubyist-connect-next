@@ -1,23 +1,29 @@
 import Head from 'next/head';
 import { useUser } from '@supabase/auth-helpers-react';
 import { supabaseClient } from '@supabase/auth-helpers-nextjs';
-import { Button, Text, Container, Spacer } from '@nextui-org/react';
-import { useRouter } from 'next/router';
+import { Button, Text, Container, Spacer, Loading, Link } from '@nextui-org/react';
+import UserIndexPage from './nnect';
+import router from 'next/router';
 
 export default function LoginPage(ogp) {
-  const router = useRouter();
-  const { user, error } = useUser();
+  const { user, isLoading } = useUser();
   async function login() {
     try {
-      await supabaseClient.auth.signIn({
-        provider: 'github',
-      });
+      await supabaseClient.auth.signIn(
+        {
+          provider: 'github',
+        },
+        {
+          redirectTo: '/nnect',
+        }
+      );
     } catch (err) {
       console.error(err);
     }
   }
-  if (error) return <p>{error.message}</p>;
-  if (!user)
+  if (isLoading) return <Loading />;
+
+  if (!user) {
     return (
       <>
         <Head>
@@ -48,5 +54,8 @@ export default function LoginPage(ogp) {
         </Container>
       </>
     );
-  router.push('/nnect');
+  } else {
+    router.replace('/nnect');
+    return <UserIndexPage />;
+  }
 }
