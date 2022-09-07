@@ -1,4 +1,4 @@
-import { Text, Navbar, User, Button, Tooltip, Dropdown, Avatar, Link } from '@nextui-org/react';
+import { Text, Navbar, Button, Tooltip, Dropdown, Avatar, Link } from '@nextui-org/react';
 import { MdEditCalendar } from 'react-icons/md';
 import router from 'next/router';
 
@@ -34,7 +34,7 @@ function AppBar({ user }) {
           },
         }}>
         <Tooltip color="invert" rounded content="Events" placement="bottom" hideArrow>
-          <Button auto color="error" onPress={move_events} icon={<MdEditCalendar size={20} />} />
+          <Button auto color="error" onClick={move_events} icon={<MdEditCalendar size={20} />} />
         </Tooltip>
         <Dropdown placement="bottom-right">
           <Navbar.Item>
