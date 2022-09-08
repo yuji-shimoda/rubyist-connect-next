@@ -21,7 +21,19 @@ export default function LoginPage(ogp) {
       console.error(err);
     }
   }
-  if (isLoading) return <Loading />;
+  if (isLoading)
+    return (
+      <Container
+        as="main"
+        display="flex"
+        direction="column"
+        justify="center"
+        alignItems="center"
+        alignContent="center"
+        style={{ height: '100vh' }}>
+        <Loading size="xl" />
+      </Container>
+    );
 
   if (!user) {
     return (
