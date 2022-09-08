@@ -9,6 +9,9 @@ function AppBar({ user }) {
   }
   function menuAction(actionKey) {
     switch (actionKey) {
+      case 'profile':
+        router.push(`/nnect/${user?.user_metadata?.user_name}`);
+        break;
       case 'settings':
         router.push('/settings/profile');
         break;
