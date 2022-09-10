@@ -1,22 +1,30 @@
-import { Text, Navbar, Button, Tooltip, Dropdown, Avatar, Link } from '@nextui-org/react';
-import { MdEditCalendar } from 'react-icons/md';
-import router from 'next/router';
+import {
+  Text,
+  Navbar,
+  Button,
+  Tooltip,
+  Dropdown,
+  Avatar,
+  Link,
+} from "@nextui-org/react";
+import { MdEditCalendar } from "react-icons/md";
+import router from "next/router";
 
 function AppBar({ user }) {
-  const collapseItems = ['Profile', 'My Settings', 'Log Out'];
+  const collapseItems = ["Profile", "My Settings", "Log Out"];
   function move_events() {
-    router.push('/nnect/events');
+    router.push("/nnect/events");
   }
   function menuAction(actionKey) {
     switch (actionKey) {
-      case 'profile':
+      case "profile":
         router.push(`/nnect/${user?.user_metadata?.user_name}`);
         break;
-      case 'settings':
-        router.push('/settings/profile');
+      case "settings":
+        router.push("/settings/profile");
         break;
-      case 'logout':
-        router.push('/api/auth/logout');
+      case "logout":
+        router.push("/api/auth/logout");
         break;
       default:
         break;
@@ -31,13 +39,25 @@ function AppBar({ user }) {
       </Navbar.Brand>
       <Navbar.Content
         css={{
-          '@xs': {
-            w: '12%',
-            jc: 'flex-end',
+          "@xs": {
+            w: "12%",
+            jc: "flex-end",
           },
-        }}>
-        <Tooltip color="invert" rounded content="Events" placement="bottom" hideArrow>
-          <Button auto color="error" onClick={move_events} icon={<MdEditCalendar size={20} />} />
+        }}
+      >
+        <Tooltip
+          color="invert"
+          rounded
+          content="Events"
+          placement="bottom"
+          hideArrow
+        >
+          <Button
+            auto
+            color="error"
+            onClick={move_events}
+            icon={<MdEditCalendar size={20} />}
+          />
         </Tooltip>
         <Dropdown placement="bottom-right">
           <Navbar.Item>
@@ -52,16 +72,29 @@ function AppBar({ user }) {
               />
             </Dropdown.Trigger>
           </Navbar.Item>
-          <Dropdown.Menu aria-label="User menu actions" color="secondary" onAction={menuAction}>
-            <Dropdown.Item key="profile" css={{ height: '$18' }}>
-              <Text b color="inherit" css={{ d: 'flex' }}>
+          <Dropdown.Menu
+            aria-label="User menu actions"
+            color="secondary"
+            onAction={menuAction}
+          >
+            <Dropdown.Item
+              aria-label="profile"
+              key="profile"
+              css={{ height: "$18" }}
+            >
+              <Text b color="inherit" css={{ d: "flex" }}>
                 {user?.user_metadata?.name}
               </Text>
             </Dropdown.Item>
-            <Dropdown.Item key="settings" withDivider>
+            <Dropdown.Item aria-label="settings" key="settings" withDivider>
               My Settings
             </Dropdown.Item>
-            <Dropdown.Item key="logout" withDivider color="error">
+            <Dropdown.Item
+              aria-label="logout"
+              key="logout"
+              withDivider
+              color="error"
+            >
               Log Out
             </Dropdown.Item>
           </Dropdown.Menu>
@@ -73,15 +106,17 @@ function AppBar({ user }) {
             key={item}
             activeColor="secondary"
             css={{
-              color: index === collapseItems.length - 1 ? '$error' : '',
+              color: index === collapseItems.length - 1 ? "$error" : "",
             }}
-            isActive={index === 2}>
+            isActive={index === 2}
+          >
             <Link
               color="inherit"
               css={{
-                minWidth: '100%',
+                minWidth: "100%",
               }}
-              href="#">
+              href="#"
+            >
               {item}
             </Link>
           </Navbar.CollapseItem>
