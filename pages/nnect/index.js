@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
-import { withPageAuth } from '@supabase/auth-helpers-nextjs';
-import { useUser } from '@supabase/auth-helpers-react';
-import { Container, Grid, Pagination } from '@nextui-org/react';
-import UserCard from '../../components/UserCard';
-import AppBar from '../../components/AppBar';
+import { useState, useEffect } from "react";
+import { withPageAuth } from "@supabase/auth-helpers-nextjs";
+import { useUser } from "@supabase/auth-helpers-react";
+import { Container, Grid, Pagination, Loading } from "@nextui-org/react";
+import UserCard from "../../components/UserCard";
+import AppBar from "../../components/AppBar";
 
-export const getServerSideProps = withPageAuth({ redirectTo: '/' });
+export const getServerSideProps = withPageAuth({ redirectTo: "/" });
 
 function getPageUsers(data, currentPage, itemsPerPage) {
   const begin = (currentPage - 1) * itemsPerPage;
@@ -24,7 +24,7 @@ export default function UserIndexPage() {
   useEffect(() => {
     async function loadData() {
       try {
-        const res = await fetch('/api/users');
+        const res = await fetch("/api/users");
         if (res.ok) {
           const data = await res.json();
           setRubyists(data);
@@ -54,9 +54,11 @@ export default function UserIndexPage() {
         <>
           <Container>
             <Grid.Container gap={2} justify="center">
-              {getPageUsers(excludeMe, index, DISPLAY_COUNT).map((rubyist, index) => (
-                <UserCard key={index} rubyist={rubyist} />
-              ))}
+              {getPageUsers(excludeMe, index, DISPLAY_COUNT).map(
+                (rubyist, index) => (
+                  <UserCard key={index} rubyist={rubyist} />
+                )
+              )}
             </Grid.Container>
             <Grid.Container gap={2} justify="center">
               <Pagination
@@ -71,7 +73,17 @@ export default function UserIndexPage() {
           </Container>
         </>
       ) : (
-        ''
+        <Container
+          as="main"
+          display="flex"
+          direction="column"
+          justify="center"
+          alignItems="center"
+          alignContent="center"
+          style={{ height: "100vh" }}
+        >
+          <Loading size="xl" />
+        </Container>
       )}
     </>
   );

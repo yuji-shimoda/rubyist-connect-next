@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import { withPageAuth } from '@supabase/auth-helpers-nextjs';
-import { useUser } from '@supabase/auth-helpers-react';
-import { Container, Grid, Text, Card } from '@nextui-org/react';
-import { useRouter } from 'next/router';
-import Markdown from 'marked-react';
-import ProfileCard from '../../components/ProfileCard';
-import AppBar from '../../components/AppBar';
+import { useEffect, useState } from "react";
+import { withPageAuth } from "@supabase/auth-helpers-nextjs";
+import { useUser } from "@supabase/auth-helpers-react";
+import { Container, Grid, Text, Card } from "@nextui-org/react";
+import { useRouter } from "next/router";
+import Markdown from "marked-react";
+import ProfileCard from "../../components/ProfileCard";
+import AppBar from "../../components/AppBar";
 
-export const getServerSideProps = withPageAuth({ redirectTo: '/' });
+export const getServerSideProps = withPageAuth({ redirectTo: "/" });
 
 export default function UserPage() {
   const { user } = useUser();
@@ -34,10 +34,16 @@ export default function UserPage() {
       <AppBar user={user} />
       <Container>
         <Grid.Container gap={2} justify="center">
-          <Grid sm md lg xl css={{ margin: 20 }}>
+          <Grid sm md lg xl>
             <ProfileCard rubyist={rubyist} />
-            <Grid sm md lg xl />
-            <Grid.Container sm={10} md={10} lg={10} xl={10} gap={2} justify="center">
+            <Grid.Container
+              sm={10}
+              md={10}
+              lg={10}
+              xl={10}
+              gap={2}
+              justify="center"
+            >
               <Card>
                 <Card.Header>
                   <Text b>Introduction</Text>
